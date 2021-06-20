@@ -1,0 +1,244 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ExpenditureBookDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="DataEntries">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ItemTypeId" Type="int" />
+          <Property Name="ItemSubTypeId" Type="int" />
+          <Property Name="Amount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="DataDate" Type="date" Nullable="false" />
+          <Property Name="Remarks" Type="nvarchar" MaxLength="100" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="EntryDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ItemSubType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="100" />
+          <Property Name="ItemTypeId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ItemType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_DataEntries_ItemSubType">
+          <End Role="ItemSubType" Type="Self.ItemSubType" Multiplicity="0..1" />
+          <End Role="DataEntries" Type="Self.DataEntries" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ItemSubType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DataEntries">
+              <PropertyRef Name="ItemSubTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DataEntries_ItemType">
+          <End Role="ItemType" Type="Self.ItemType" Multiplicity="0..1" />
+          <End Role="DataEntries" Type="Self.DataEntries" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ItemType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DataEntries">
+              <PropertyRef Name="ItemTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ItemSubType_ItemType">
+          <End Role="ItemType" Type="Self.ItemType" Multiplicity="1" />
+          <End Role="ItemSubType" Type="Self.ItemSubType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ItemType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ItemSubType">
+              <PropertyRef Name="ItemTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ExpenditureBookDbModelStoreContainer">
+          <EntitySet Name="DataEntries" EntityType="Self.DataEntries" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ItemSubType" EntityType="Self.ItemSubType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ItemType" EntityType="Self.ItemType" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_DataEntries_ItemSubType" Association="Self.FK_DataEntries_ItemSubType">
+            <End Role="ItemSubType" EntitySet="ItemSubType" />
+            <End Role="DataEntries" EntitySet="DataEntries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DataEntries_ItemType" Association="Self.FK_DataEntries_ItemType">
+            <End Role="ItemType" EntitySet="ItemType" />
+            <End Role="DataEntries" EntitySet="DataEntries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ItemSubType_ItemType" Association="Self.FK_ItemSubType_ItemType">
+            <End Role="ItemType" EntitySet="ItemType" />
+            <End Role="ItemSubType" EntitySet="ItemSubType" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ExpenditureBookDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="DataEntry">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ItemTypeId" Type="Int32" />
+          <Property Name="ItemSubTypeId" Type="Int32" />
+          <Property Name="Amount" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="DataDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Remarks" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="EntryDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="ItemSubType" Relationship="Self.FK_DataEntries_ItemSubType" FromRole="DataEntries" ToRole="ItemSubType" />
+          <NavigationProperty Name="ItemType" Relationship="Self.FK_DataEntries_ItemType" FromRole="DataEntries" ToRole="ItemType" />
+        </EntityType>
+        <EntityType Name="ItemSubType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ItemTypeId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="DataEntries" Relationship="Self.FK_DataEntries_ItemSubType" FromRole="ItemSubType" ToRole="DataEntries" />
+          <NavigationProperty Name="ItemType" Relationship="Self.FK_ItemSubType_ItemType" FromRole="ItemSubType" ToRole="ItemType" />
+        </EntityType>
+        <EntityType Name="ItemType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="DataEntries" Relationship="Self.FK_DataEntries_ItemType" FromRole="ItemType" ToRole="DataEntries" />
+          <NavigationProperty Name="ItemSubTypes" Relationship="Self.FK_ItemSubType_ItemType" FromRole="ItemType" ToRole="ItemSubType" />
+        </EntityType>
+        <Association Name="FK_DataEntries_ItemSubType">
+          <End Role="ItemSubType" Type="Self.ItemSubType" Multiplicity="0..1" />
+          <End Role="DataEntries" Type="Self.DataEntry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ItemSubType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DataEntries">
+              <PropertyRef Name="ItemSubTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DataEntries_ItemType">
+          <End Role="ItemType" Type="Self.ItemType" Multiplicity="0..1" />
+          <End Role="DataEntries" Type="Self.DataEntry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ItemType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DataEntries">
+              <PropertyRef Name="ItemTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ItemSubType_ItemType">
+          <End Role="ItemType" Type="Self.ItemType" Multiplicity="1" />
+          <End Role="ItemSubType" Type="Self.ItemSubType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ItemType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ItemSubType">
+              <PropertyRef Name="ItemTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ExpenditureBookDbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="DataEntries" EntityType="Self.DataEntry" />
+          <EntitySet Name="ItemSubTypes" EntityType="Self.ItemSubType" />
+          <EntitySet Name="ItemTypes" EntityType="Self.ItemType" />
+          <AssociationSet Name="FK_DataEntries_ItemSubType" Association="Self.FK_DataEntries_ItemSubType">
+            <End Role="ItemSubType" EntitySet="ItemSubTypes" />
+            <End Role="DataEntries" EntitySet="DataEntries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DataEntries_ItemType" Association="Self.FK_DataEntries_ItemType">
+            <End Role="ItemType" EntitySet="ItemTypes" />
+            <End Role="DataEntries" EntitySet="DataEntries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ItemSubType_ItemType" Association="Self.FK_ItemSubType_ItemType">
+            <End Role="ItemType" EntitySet="ItemTypes" />
+            <End Role="ItemSubType" EntitySet="ItemSubTypes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ExpenditureBookDbModelStoreContainer" CdmEntityContainer="ExpenditureBookDbEntities">
+          <EntitySetMapping Name="DataEntries">
+            <EntityTypeMapping TypeName="ExpenditureBookDbModel.DataEntry">
+              <MappingFragment StoreEntitySet="DataEntries">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ItemTypeId" ColumnName="ItemTypeId" />
+                <ScalarProperty Name="ItemSubTypeId" ColumnName="ItemSubTypeId" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="DataDate" ColumnName="DataDate" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ItemSubTypes">
+            <EntityTypeMapping TypeName="ExpenditureBookDbModel.ItemSubType">
+              <MappingFragment StoreEntitySet="ItemSubType">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ItemTypeId" ColumnName="ItemTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ItemTypes">
+            <EntityTypeMapping TypeName="ExpenditureBookDbModel.ItemType">
+              <MappingFragment StoreEntitySet="ItemType">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
