@@ -127,6 +127,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ConfigurationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -134,6 +135,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\css\bootstrap.min.css" />
+    <Content Include="Content\css\custom.css" />
+    <Content Include="Content\css\w3.css" />
     <Content Include="Content\fontawesome\attribution.js" />
     <Content Include="Content\fontawesome\css\all.css" />
     <Content Include="Content\fontawesome\css\all.min.css" />
@@ -1783,6 +1787,9 @@
     <Content Include="Content\fontawesome\webfonts\fa-regular-400.svg" />
     <Content Include="Content\fontawesome\webfonts\fa-solid-900.svg" />
     <Content Include="Content\Images\avatar2.png" />
+    <Content Include="Content\scripts\bootstrap.min.js" />
+    <Content Include="Content\scripts\jquery.min.js" />
+    <Content Include="Content\scripts\popper.min.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -1867,6 +1874,8 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Configuration\GetSubTypes.cshtml" />
+    <Content Include="Views\Configuration\AddSubType.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
