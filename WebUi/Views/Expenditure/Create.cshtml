@@ -1,0 +1,70 @@
+﻿@model WebUi.Models.InputForms.AddExpenditureInputModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+
+<div class="w3-card-4 mr-2">
+    <div class="w3-container w3-dark-gray">
+        <div class="row">
+            <div class="col-9"><h1>Add New Expenditure</h1></div>
+            <div class="col-3 text-right">
+                @*<a href="~/Configuration/GetSubTypes" class="w3-button w3-teal" id="btnBack">Back to List <i class="fa fa-forward"></i></a>*@
+            </div>
+        </div>
+    </div>
+    <form class="w3-container mt-2" method="post">
+        <p>
+            <label class="w3-text-brown"><b>Item Type</b></label>
+            @Html.DropDownList("ItemTypeId", (IEnumerable<SelectListItem>)ViewBag.ItemTypeList, new { @class = "w3-input w3-border w3-sand" })
+        </p>
+        <p>
+            <label class="w3-text-brown"><b>Item Sub Type</b></label>
+            <select name="ItemSubTypeId" id="ItemSubTypeId" class="w3-input w3-border w3-sand"></select>
+        </p>
+        <p>
+            <label class="w3-text-brown"><b>Amount</b></label>
+            @Html.TextBoxFor(model => model.Amount, new { @class = "w3-input w3-border w3-sand" })
+        </p>
+        <p>
+            <label class="w3-text-brown"><b>Remarks</b></label>
+            @Html.TextBoxFor(model => model.Remarks, new { @class = "w3-input w3-border w3-sand" })
+        </p>
+        <p class="text-right">
+            <button type="submit" class="w3-btn w3-green"><i class="fa fa-save"></i> Save</button>
+        </p>
+    </form>
+</div>
+
+
+
+<script type="text/javascript">
+    $(document).on('change', "#ItemTypeId", function () {
+        $('#ItemSubTypeId').empty();
+        var optionSelected = $("option:selected", this);
+        var valueSelected = this.value;
+
+        if (valueSelected != "0") {
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("GetSubTypesByType", "Expenditure")",
+                traditional: true,
+                data: { typeId: valueSelected },
+                success: successFunc,
+                error: errorFunc
+            });
+
+            function successFunc(data, status) {
+                $.each(data, function (index, value) {
+                    $('#ItemSubTypeId').append('<option value="' + value.Id + '">' + value.Name + '</option>');
+                });
+            }
+
+            function errorFunc(xhr, err) {
+                alert("readyState: " + xhr.readyState + "\nstatus: " + xhr.status);
+                alert("responseText: " + xhr.responseText);
+            }
+        }
+    });
+</script>
