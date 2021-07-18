@@ -134,12 +134,17 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\InputForms\AddExpenditureInputModel.cs" />
+    <Compile Include="Models\InputForms\AddSubTypeInputModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\css\bootstrap.min.css" />
     <Content Include="Content\css\custom.css" />
     <Content Include="Content\css\w3.css" />
+    <Content Include="Content\datetimepicker-master\date-functions.js" />
+    <Content Include="Content\datetimepicker-master\jquery.datetimepicker.css" />
+    <Content Include="Content\datetimepicker-master\jquery.datetimepicker.js" />
+    <Content Include="Content\datetimepicker-master\jquery.js" />
     <Content Include="Content\fontawesome\attribution.js" />
     <Content Include="Content\fontawesome\css\all.css" />
     <Content Include="Content\fontawesome\css\all.min.css" />
@@ -1851,6 +1856,9 @@
     <Content Include="Content\fontawesome\webfonts\fa-solid-900.ttf" />
     <Content Include="Content\fontawesome\webfonts\fa-solid-900.woff" />
     <Content Include="Content\fontawesome\webfonts\fa-solid-900.woff2" />
+    <Content Include="Content\datetimepicker-master\bower.json" />
+    <Content Include="Content\datetimepicker-master\datetimepicker.jquery.json" />
+    <Content Include="Content\datetimepicker-master\doc.tpl" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

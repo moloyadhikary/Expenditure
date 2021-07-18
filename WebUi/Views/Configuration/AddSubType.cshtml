@@ -1,4 +1,4 @@
-﻿@model BusinessObject.ItemSubType
+﻿@model WebUi.Models.InputForms.AddSubTypeInputModel
 
 @{
     ViewBag.Title = "AddSubType";
@@ -14,17 +14,20 @@
         </div>
     </div>
     <form class="w3-container mt-2" method="post">
-        <p>      
+        <p>
             <label class="w3-text-brown"><b>Item Type</b></label>
-            @Html.DropDownList("ItemTypeId", (IEnumerable<SelectListItem>)ViewBag.ItemTypeList, new { @class= "w3-input w3-border w3-sand"})
+            @Html.DropDownList("ItemTypeId", (IEnumerable<SelectListItem>)ViewBag.ItemTypeList, new { @class = "w3-input w3-border w3-sand" })
+            @Html.ValidationMessageFor(model => model.ItemTypeId, null, new { @class = "text-danger" })
         </p>
         <p>
             <label class="w3-text-brown"><b>Sub Type Name</b></label>
-            @Html.TextBoxFor(model => model.Name, new {@class = "w3-input w3-border w3-sand"})
+            @Html.TextBoxFor(model => model.Name, new {@class = "w3-input w3-border w3-sand" })
+            @Html.ValidationMessageFor(model=>model.Name, null, new { @class="text-danger"} )
         </p>
         <p>
             <label class="w3-text-brown"><b>Description</b></label>
-            @Html.TextBoxFor(model => model.Description, new {@class = "w3-input w3-border w3-sand"})
+            @Html.TextBoxFor(model => model.Description, new { @class = "w3-input w3-border w3-sand" })
+            @Html.ValidationMessageFor(model => model.Description, null, new { @class = "text-danger" })
         </p>
         <p class="text-right">
             <button type="submit" class="w3-btn w3-green"><i class="fa fa-save"></i> Save</button></p>

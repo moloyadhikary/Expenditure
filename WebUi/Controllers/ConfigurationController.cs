@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using BusinessObject;
+using WebUi.Models.InputForms;
 
 namespace WebUi.Controllers
 {
@@ -32,7 +33,7 @@ namespace WebUi.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddSubType(ItemSubType model)
+        public ActionResult AddSubType(AddSubTypeInputModel model)
         {
             if (string.IsNullOrWhiteSpace(model.Name))
             {
@@ -40,7 +41,12 @@ namespace WebUi.Controllers
                 return RedirectToAction(nameof(AddSubType));
             }
 
-            db.ItemSubTypes.Add(model);
+            var subType = new ItemSubType();
+            subType.Name = model.Name;
+            subType.Description = model.Description;
+            subType.ItemTypeId = model.ItemTypeId;
+
+            db.ItemSubTypes.Add(subType);
             db.SaveChanges();
 
             TempData["Message"] = $"Sub type {model.Name} saved successfully";

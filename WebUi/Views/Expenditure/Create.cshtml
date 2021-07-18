@@ -18,18 +18,27 @@
         <p>
             <label class="w3-text-brown"><b>Item Type</b></label>
             @Html.DropDownList("ItemTypeId", (IEnumerable<SelectListItem>)ViewBag.ItemTypeList, new { @class = "w3-input w3-border w3-sand" })
+            @Html.ValidationMessageFor(model => model.ItemTypeId, null, new { @class = "text-danger" })
         </p>
         <p>
             <label class="w3-text-brown"><b>Item Sub Type</b></label>
             <select name="ItemSubTypeId" id="ItemSubTypeId" class="w3-input w3-border w3-sand"></select>
+            @Html.ValidationMessageFor(model => model.ItemSubTypeId, null, new { @class = "text-danger" })
         </p>
         <p>
             <label class="w3-text-brown"><b>Amount</b></label>
             @Html.TextBoxFor(model => model.Amount, new { @class = "w3-input w3-border w3-sand" })
+            @Html.ValidationMessageFor(model => model.Amount, null, new { @class = "text-danger" })
+        </p>
+        <p>
+            <label class="w3-text-brown"><b>Date</b></label>
+            @Html.TextBoxFor(model => model.DataDate, new { @class = "w3-input w3-border w3-sand datepickerWithoutMask", @autocomplete="off" })
+            @Html.ValidationMessageFor(model => model.DataDate, null, new { @class = "text-danger" })
         </p>
         <p>
             <label class="w3-text-brown"><b>Remarks</b></label>
             @Html.TextBoxFor(model => model.Remarks, new { @class = "w3-input w3-border w3-sand" })
+            @Html.ValidationMessageFor(model => model.Remarks, null, new { @class = "text-danger" })
         </p>
         <p class="text-right">
             <button type="submit" class="w3-btn w3-green"><i class="fa fa-save"></i> Save</button>
