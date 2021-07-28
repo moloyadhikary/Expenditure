@@ -1,7 +1,54 @@
-﻿@{
+﻿@model IEnumerable<BusinessObject.DataEntry>
+
+@{
     ViewBag.Title = "Home Page";
+    var incomeAmount = @Model.Where(x => x.ItemTypeId == 2).Sum(x => x.Amount);
+    var expenseAmount = @Model.Where(x => x.ItemTypeId == 1).Sum(x => x.Amount);
 }
 
-<div class="text-right">
-    <a href="~/Expenditure/Create" class="w3-button w3-teal"><i class="fa fa-plus"></i> Add New Expenditure</a>
+<div class="row">
+    <div class="col-8">
+        <h3>Calculation for month: @string.Format("{0:MMMM, yyyy}", DateTime.Now)</h3>
+    </div>
+    <div class="col-4 text-right">
+        <a href="~/Expenditure/Create" class="w3-button w3-teal"><i class="fa fa-plus"></i> Add New Expenditure</a>
+    </div>
+</div>
+<div class="row ml-2 mr-2">
+    <table class="table table-striped table-bordered">
+        <thead>
+        <tr class="bg-dark text-white text-center">
+            <th>Incomes</th>
+            <th>Expenses</th>
+        </tr>
+        </thead>
+        <tbody class="font-weight-bold text-right">
+        @foreach (var item in Model)
+        {
+            if (item.ItemSubTypeId == 2)
+            {
+                <tr>
+                    <td>@item.ItemSubType.Name: @item.Amount (@item.DataDate)</td>
+                    <td></td>
+                </tr>
+            }
+            else
+            {
+                <tr>
+                    <td></td>
+                    <td>@item.ItemSubType.Name: @item.Amount (@item.DataDate)</td>
+                </tr>
+            }
+        }
+        </tbody>
+        <tfoot class="font-weight-bold text-right">
+        <tr>
+            <td>Total Income: @incomeAmount</td>
+            <td>Total Expense: @expenseAmount</td>
+        </tr>
+        <tr>
+            <td colspan="2">Surplus Amount: @(incomeAmount - expenseAmount)</td>
+        </tr>
+        </tfoot>
+    </table>
 </div>
