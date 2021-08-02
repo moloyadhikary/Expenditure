@@ -1887,6 +1887,8 @@
     <Content Include="Views\Configuration\GetSubTypes.cshtml" />
     <Content Include="Views\Configuration\AddSubType.cshtml" />
     <Content Include="Views\Expenditure\Create.cshtml" />
+    <Content Include="Views\Home\pv_MonthData.cshtml" />
+    <Content Include="Views\Expenditure\History.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

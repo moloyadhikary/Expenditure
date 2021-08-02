@@ -64,5 +64,25 @@ namespace WebUi.Controllers
                 x.Name
             }));
         }
+
+
+        [HttpGet]
+        public ActionResult History()
+        {
+            var startDate = new DateTime(1990, 1, 1);
+            var endDate = startDate.AddMonths(1).AddDays(-1);
+            var data = db.DataEntries.Where(x=>x.IsDeleted==false && x.DataDate >= startDate && x.DataDate <= endDate).ToList();
+            
+            return View(data);
+        }
+
+        [HttpPost]
+        public ActionResult LoadHistory(int month, int year)
+        {
+            var startDate = new DateTime(year, month, 1);
+            var endDate = startDate.AddMonths(1).AddDays(-1);
+            var data = db.DataEntries.Where(x=>x.IsDeleted==false && x.DataDate >= startDate && x.DataDate <= endDate).ToList();
+            return PartialView("../Home/pv_MonthData", data);
+        }
     }
 }
