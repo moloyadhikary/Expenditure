@@ -127,14 +127,17 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ConfigurationController.cs" />
     <Compile Include="Controllers\ExpenditureController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="ICustomPrincipal.cs" />
     <Compile Include="Models\InputForms\AddExpenditureInputModel.cs" />
     <Compile Include="Models\InputForms\AddSubTypeInputModel.cs" />
+    <Compile Include="Models\InputForms\LoginInputModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -1889,6 +1892,7 @@
     <Content Include="Views\Expenditure\Create.cshtml" />
     <Content Include="Views\Home\pv_MonthData.cshtml" />
     <Content Include="Views\Expenditure\History.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

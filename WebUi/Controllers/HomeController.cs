@@ -7,6 +7,7 @@ using BusinessObject;
 
 namespace WebUi.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private ExpenditureBookDbEntities db;

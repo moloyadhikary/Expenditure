@@ -47,9 +47,13 @@
     <hr>
     <div class="w3-bar-block">
         <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i> Close Menu</a>
-        <a href="~/Home/Index" class="navLink w3-bar-item w3-button w3-padding"><i class="fas fa-home"></i> Home</a>
-        <a href="~/Configuration/GetSubTypes" class="navLink w3-bar-item w3-button w3-padding"><i class="fas fa-list"></i> Sub Types</a>
-        <a href="~/Expenditure/History" class="navLink w3-bar-item w3-button w3-padding"><i class="fas fa-bar-chart"></i> History</a>
+        
+        @if (User.Identity.IsAuthenticated)
+        {
+            <a href="~/Home/Index" class="navLink w3-bar-item w3-button w3-padding"><i class="fas fa-home"></i> Home</a>
+            <a href="~/Configuration/GetSubTypes" class="navLink w3-bar-item w3-button w3-padding"><i class="fas fa-list"></i> Sub Types</a>
+            <a href="~/Expenditure/History" class="navLink w3-bar-item w3-button w3-padding"><i class="fas fa-bar-chart"></i> History</a>
+        }
     </div>
 </nav>
 

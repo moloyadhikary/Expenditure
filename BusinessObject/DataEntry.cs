@@ -22,8 +22,10 @@ namespace BusinessObject
         public string Remarks { get; set; }
         public bool IsDeleted { get; set; }
         public System.DateTime EntryDate { get; set; }
+        public Nullable<int> UserId { get; set; }
     
         public virtual ItemSubType ItemSubType { get; set; }
         public virtual ItemType ItemType { get; set; }
+        public virtual UserData UserData { get; set; }
     }
 }

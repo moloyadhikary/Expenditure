@@ -78,6 +78,9 @@
       <DependentUpon>ExpenditureBookModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserData.cs">
+      <DependentUpon>ExpenditureBookModel.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -28,5 +28,6 @@ namespace BusinessObject
         public virtual DbSet<DataEntry> DataEntries { get; set; }
         public virtual DbSet<ItemSubType> ItemSubTypes { get; set; }
         public virtual DbSet<ItemType> ItemTypes { get; set; }
+        public virtual DbSet<UserData> UserDatas { get; set; }
     }
 }

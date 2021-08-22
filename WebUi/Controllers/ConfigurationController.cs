@@ -8,6 +8,7 @@ using WebUi.Models.InputForms;
 
 namespace WebUi.Controllers
 {
+    [Authorize]
     public class ConfigurationController : Controller
     {
         private ExpenditureBookDbEntities db;

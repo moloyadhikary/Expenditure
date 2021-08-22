@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ExpenditureBookDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ExpenditureBookDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="DataEntries">
           <Key>
             <PropertyRef Name="Id" />
@@ -17,6 +17,7 @@
           <Property Name="Remarks" Type="nvarchar" MaxLength="100" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
           <Property Name="EntryDate" Type="datetime" Nullable="false" />
+          <Property Name="UserId" Type="int" />
         </EntityType>
         <EntityType Name="ItemSubType">
           <Key>
@@ -33,6 +34,15 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserData">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserFullName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="UserPassword" Type="varchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <Association Name="FK_DataEntries_ItemSubType">
           <End Role="ItemSubType" Type="Self.ItemSubType" Multiplicity="0..1" />
@@ -58,6 +68,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_DataEntries_User">
+          <End Role="UserData" Type="Self.UserData" Multiplicity="0..1" />
+          <End Role="DataEntries" Type="Self.DataEntries" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserData">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DataEntries">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ItemSubType_ItemType">
           <End Role="ItemType" Type="Self.ItemType" Multiplicity="1" />
           <End Role="ItemSubType" Type="Self.ItemSubType" Multiplicity="*" />
@@ -74,6 +96,7 @@
           <EntitySet Name="DataEntries" EntityType="Self.DataEntries" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ItemSubType" EntityType="Self.ItemSubType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ItemType" EntityType="Self.ItemType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserData" EntityType="Self.UserData" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_DataEntries_ItemSubType" Association="Self.FK_DataEntries_ItemSubType">
             <End Role="ItemSubType" EntitySet="ItemSubType" />
             <End Role="DataEntries" EntitySet="DataEntries" />
@@ -82,13 +105,16 @@
             <End Role="ItemType" EntitySet="ItemType" />
             <End Role="DataEntries" EntitySet="DataEntries" />
           </AssociationSet>
+          <AssociationSet Name="FK_DataEntries_User" Association="Self.FK_DataEntries_User">
+            <End Role="UserData" EntitySet="UserData" />
+            <End Role="DataEntries" EntitySet="DataEntries" />
+          </AssociationSet>
           <AssociationSet Name="FK_ItemSubType_ItemType" Association="Self.FK_ItemSubType_ItemType">
             <End Role="ItemType" EntitySet="ItemType" />
             <End Role="ItemSubType" EntitySet="ItemSubType" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ExpenditureBookDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -106,6 +132,8 @@
           <Property Name="EntryDate" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="ItemSubType" Relationship="Self.FK_DataEntries_ItemSubType" FromRole="DataEntries" ToRole="ItemSubType" />
           <NavigationProperty Name="ItemType" Relationship="Self.FK_DataEntries_ItemType" FromRole="DataEntries" ToRole="ItemType" />
+          <Property Name="UserId" Type="Int32" />
+          <NavigationProperty Name="UserData" Relationship="ExpenditureBookDbModel.FK_DataEntries_User" FromRole="DataEntry" ToRole="UserData" />
         </EntityType>
         <EntityType Name="ItemSubType">
           <Key>
@@ -179,7 +207,34 @@
             <End Role="ItemType" EntitySet="ItemTypes" />
             <End Role="ItemSubType" EntitySet="ItemSubTypes" />
           </AssociationSet>
+          <EntitySet Name="UserDatas" EntityType="ExpenditureBookDbModel.UserData" />
+          <AssociationSet Name="FK_DataEntries_User" Association="ExpenditureBookDbModel.FK_DataEntries_User">
+            <End Role="UserData" EntitySet="UserDatas" />
+            <End Role="DataEntry" EntitySet="DataEntries" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="UserData">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UserFullName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="UserPassword" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DataEntries" Relationship="ExpenditureBookDbModel.FK_DataEntries_User" FromRole="UserData" ToRole="DataEntry" />
+        </EntityType>
+        <Association Name="FK_DataEntries_User">
+          <End Type="ExpenditureBookDbModel.UserData" Role="UserData" Multiplicity="0..1" />
+          <End Type="ExpenditureBookDbModel.DataEntry" Role="DataEntry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserData">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DataEntry">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -189,6 +244,7 @@
           <EntitySetMapping Name="DataEntries">
             <EntityTypeMapping TypeName="ExpenditureBookDbModel.DataEntry">
               <MappingFragment StoreEntitySet="DataEntries">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="ItemTypeId" ColumnName="ItemTypeId" />
                 <ScalarProperty Name="ItemSubTypeId" ColumnName="ItemSubTypeId" />
@@ -215,6 +271,16 @@
               <MappingFragment StoreEntitySet="ItemType">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserDatas">
+            <EntityTypeMapping TypeName="ExpenditureBookDbModel.UserData">
+              <MappingFragment StoreEntitySet="UserData">
+                <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+                <ScalarProperty Name="UserFullName" ColumnName="UserFullName" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

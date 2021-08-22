@@ -11,6 +11,8 @@
         <AssociationConnector Association="ExpenditureBookDbModel.FK_DataEntries_ItemSubType" ManuallyRouted="false" />
         <AssociationConnector Association="ExpenditureBookDbModel.FK_DataEntries_ItemType" ManuallyRouted="false" />
         <AssociationConnector Association="ExpenditureBookDbModel.FK_ItemSubType_ItemType" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ExpenditureBookDbModel.UserData" Width="1.5" PointX="3.375" PointY="0.875" />
+        <AssociationConnector Association="ExpenditureBookDbModel.FK_DataEntries_User" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
