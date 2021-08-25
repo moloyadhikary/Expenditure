@@ -40,5 +40,7 @@ namespace WebUi
                 HttpContext.Current.User = newUser;
             }
         }
+        
+        
     }
 }

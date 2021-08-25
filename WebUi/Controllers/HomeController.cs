@@ -8,15 +8,8 @@ using BusinessObject;
 namespace WebUi.Controllers
 {
     [Authorize]
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
-        private ExpenditureBookDbEntities db;
-
-        public HomeController()
-        {
-            db = new ExpenditureBookDbEntities();
-        }
-        
         public ActionResult Index()
         {
             var now = DateTime.Now;

@@ -9,15 +9,8 @@ using WebUi.Models.InputForms;
 namespace WebUi.Controllers
 {
     [Authorize]
-    public class ExpenditureController : Controller
+    public class ExpenditureController : BaseController
     {
-        private ExpenditureBookDbEntities db;
-
-        public ExpenditureController()
-        {
-            db = new ExpenditureBookDbEntities();
-        }
-       
         public ActionResult Create()
         {
             var itemTypes = db.ItemTypes.ToList();
@@ -47,6 +40,7 @@ namespace WebUi.Controllers
             data.IsDeleted = false;
             data.ItemSubTypeId = model.ItemSubTypeId;
             data.Remarks = model.Remarks;
+            data.UserId = User.Id;
 
             db.DataEntries.Add(data);
             db.SaveChanges();
@@ -84,6 +78,16 @@ namespace WebUi.Controllers
             var endDate = startDate.AddMonths(1).AddDays(-1);
             var data = db.DataEntries.Where(x=>x.IsDeleted==false && x.DataDate >= startDate && x.DataDate <= endDate).ToList();
             return PartialView("../Home/pv_MonthData", data);
+        }
+
+        [HttpGet]
+        public ActionResult DeleteEntry(int id)
+        {
+            var data = db.DataEntries.FirstOrDefault(d=>d.Id==id);
+            //db.DataEntries.Remove(data);
+            data.IsDeleted = true;
+            db.SaveChanges();
+            return RedirectToAction("Index", "Home");
         }
     }
 }

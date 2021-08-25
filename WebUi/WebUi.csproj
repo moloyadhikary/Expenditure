@@ -128,6 +128,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ConfigurationController.cs" />
     <Compile Include="Controllers\ExpenditureController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -137,6 +138,7 @@
     <Compile Include="ICustomPrincipal.cs" />
     <Compile Include="Models\InputForms\AddExpenditureInputModel.cs" />
     <Compile Include="Models\InputForms\AddSubTypeInputModel.cs" />
+    <Compile Include="Models\InputForms\ChangePasswordModel.cs" />
     <Compile Include="Models\InputForms\LoginInputModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -1893,9 +1895,11 @@
     <Content Include="Views\Home\pv_MonthData.cshtml" />
     <Content Include="Views\Expenditure\History.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\ChangePassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

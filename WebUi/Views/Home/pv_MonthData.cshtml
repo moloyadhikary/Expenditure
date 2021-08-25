@@ -18,7 +18,9 @@
             if (item.ItemSubTypeId == 2)
             {
                 <tr>
-                    <td>@item.ItemSubType.Name: @item.Amount (@item.DataDate.ToString("D"))</td>
+                    <td>@item.ItemSubType.Name: @item.Amount (@item.DataDate.ToString("D")) 
+                    <a href="~/Expenditure/DeleteEntry?id=@item.Id" title="Remove this entry"><i class="fas fa-trash-alt text-danger font-weight-bold"></i></a>
+                        </td>
                     <td></td>
                 </tr>
             }
@@ -26,7 +28,9 @@
             {
                 <tr>
                     <td></td>
-                    <td>@item.ItemSubType.Name: @item.Amount (@item.DataDate.ToString("D"))</td>
+                    <td>@item.ItemSubType.Name: @item.Amount (@item.DataDate.ToString("D"))
+                        <a href="~/Expenditure/DeleteEntry?id=@item.Id" title="Remove this entry"><i class="fas fa-trash-alt text-danger font-weight-bold"></i></a>
+                        </td>
                 </tr>
             }
         }

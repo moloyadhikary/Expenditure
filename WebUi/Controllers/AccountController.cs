@@ -10,13 +10,8 @@ using WebUi.Models.InputForms;
 
 namespace WebUi.Controllers
 {
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
-        private ExpenditureBookDbEntities db;
-        public AccountController()
-        {
-            db = new ExpenditureBookDbEntities();
-        }
 
         [AllowAnonymous]
         public ActionResult Login()
@@ -67,6 +62,52 @@ namespace WebUi.Controllers
             
             TempData["Message"] = "Form contains error. Please input properly";
             return View(model);
+        }
+
+        [Authorize]
+        public ActionResult SignOut()
+        {
+            FormsAuthentication.SignOut();
+            HttpContext.Items.Clear();
+            return RedirectToAction(nameof(Login));
+        }
+
+        [Authorize]
+        [HttpGet]
+        public ActionResult ChangePassword()
+        {
+            return View();
+        }
+        
+        [Authorize]
+        [HttpPost]
+        public ActionResult ChangePassword(ChangePasswordModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var userId = User.Id;
+                var userData = db.UserDatas.FirstOrDefault(u => u.Id == userId);
+                if (userData.UserPassword != model.CurrentPassword)
+                {
+                    TempData["Message"] = "Incorrect current Password";
+                    return View();
+                }
+
+                if (model.NewPassword != model.ConfirmPassword)
+                {
+                    TempData["Message"] = "New passwords didn't match";
+                    return View();
+                }
+
+                userData.UserPassword = model.NewPassword;
+                db.SaveChanges();
+                
+                TempData["Message"] = "Password changed successfully";
+                return RedirectToAction("Index","Home");
+            }
+            
+            TempData["Message"] = "Form contains error. Please input properly";
+            return View();
         }
     }
 }

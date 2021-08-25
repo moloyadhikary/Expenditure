@@ -9,16 +9,8 @@ using WebUi.Models.InputForms;
 namespace WebUi.Controllers
 {
     [Authorize]
-    public class ConfigurationController : Controller
+    public class ConfigurationController : BaseController
     {
-        private ExpenditureBookDbEntities db;
-
-        public ConfigurationController()
-        {
-            db = new ExpenditureBookDbEntities();
-        }
-
-
         public ActionResult GetSubTypes()
         {
             var subTypes = db.ItemSubTypes.OrderBy(x=>x.Name).ToList();
