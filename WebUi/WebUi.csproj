@@ -139,6 +139,7 @@
     <Compile Include="Models\InputForms\AddExpenditureInputModel.cs" />
     <Compile Include="Models\InputForms\AddSubTypeInputModel.cs" />
     <Compile Include="Models\InputForms\ChangePasswordModel.cs" />
+    <Compile Include="Models\InputForms\EditItemSubTypeModel.cs" />
     <Compile Include="Models\InputForms\LoginInputModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -1896,6 +1897,7 @@
     <Content Include="Views\Expenditure\History.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\ChangePassword.cshtml" />
+    <Content Include="Views\Configuration\EditSubType.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -43,6 +44,43 @@ namespace WebUi.Controllers
             db.SaveChanges();
 
             TempData["Message"] = $"Sub type {model.Name} saved successfully";
+            return RedirectToAction(nameof(GetSubTypes));
+        }
+
+        [HttpGet]
+        [Authorize]
+        public ActionResult EditSubType(int id)
+        {
+            var subType = db.ItemSubTypes.FirstOrDefault(x => x.Id == id);
+            var model = new EditItemSubTypeModel();
+            model.Id = subType.Id;
+            model.Description = subType.Description;
+            model.ItemTypeId = subType.ItemTypeId;
+            model.Name = subType.Name;
+            
+            var itemTypes = db.ItemTypes.ToList();
+            ViewBag.ItemTypeList = new SelectList(itemTypes, "Id", "Name");
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public ActionResult EditSubType(EditItemSubTypeModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var dbModel = db.ItemSubTypes.FirstOrDefault(x => x.Id == model.Id);
+                dbModel.Name = model.Name;
+                dbModel.Description = model.Description;
+                dbModel.ItemTypeId = model.ItemTypeId;
+                
+                db.ItemSubTypes.AddOrUpdate(dbModel);
+                db.SaveChanges();
+                
+                TempData["Message"] = $"Sub type {model.Name} updated successfully";
+            }
+
             return RedirectToAction(nameof(GetSubTypes));
         }
     }

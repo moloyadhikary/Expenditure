@@ -15,12 +15,16 @@
     <tbody class="font-weight-bold text-right">
         @foreach (var item in Model)
         {
-            if (item.ItemSubTypeId == 2)
+            if (item.ItemTypeId == 2)
             {
                 <tr>
-                    <td>@item.ItemSubType.Name: @item.Amount (@item.DataDate.ToString("D")) 
-                    <a href="~/Expenditure/DeleteEntry?id=@item.Id" title="Remove this entry"><i class="fas fa-trash-alt text-danger font-weight-bold"></i></a>
-                        </td>
+                    <td>
+                        @item.ItemSubType.Name: @item.Amount (@item.DataDate.ToString("D"))
+                        @if (string.Format("{0:yyyyMM}", item.DataDate) == string.Format("{0:yyyyMM}", DateTime.Now))
+                        {
+                            <a href="~/Expenditure/DeleteEntry?id=@item.Id" title="Remove this entry"><i class="fas fa-trash-alt text-danger font-weight-bold"></i></a>
+                        }
+                    </td>
                     <td></td>
                 </tr>
             }
@@ -28,9 +32,13 @@
             {
                 <tr>
                     <td></td>
-                    <td>@item.ItemSubType.Name: @item.Amount (@item.DataDate.ToString("D"))
-                        <a href="~/Expenditure/DeleteEntry?id=@item.Id" title="Remove this entry"><i class="fas fa-trash-alt text-danger font-weight-bold"></i></a>
-                        </td>
+                    <td>
+                        @item.ItemSubType.Name: @item.Amount (@item.DataDate.ToString("D"))
+                        @if (string.Format("{0:yyyyMM}", item.DataDate) == string.Format("{0:yyyyMM}", DateTime.Now))
+                        {
+                            <a href="~/Expenditure/DeleteEntry?id=@item.Id" title="Remove this entry"><i class="fas fa-trash-alt text-danger font-weight-bold"></i></a>
+                        }
+                    </td>
                 </tr>
             }
         }

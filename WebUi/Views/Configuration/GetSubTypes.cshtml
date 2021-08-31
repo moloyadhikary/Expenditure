@@ -28,7 +28,9 @@
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td></td>
+                        <td>
+                            <a href="~/Configuration/EditSubType?id=@item.Id" title="Edit sub type"><i class="fas fa-pencil-alt font-weight-bold"></i></a>
+                        </td>
                         <td>@item.Name</td>
                         <td>@item.ItemType.Name</td>
                         <td>@item.Description</td>

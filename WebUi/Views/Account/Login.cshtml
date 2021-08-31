@@ -18,7 +18,7 @@
         </p>
         <p>
             <label class="w3-text-brown"><b>Password</b></label>
-            @Html.TextBoxFor(model => model.Password, new { @class = "w3-input w3-border w3-sand", @autocomplete = "off" })
+            @Html.PasswordFor(model => model.Password, new { @class = "w3-input w3-border w3-sand", @autocomplete = "off" })
             @Html.ValidationMessageFor(model => model.Password, null, new { @class = "text-danger" })
         </p>
         <p class="text-right">
